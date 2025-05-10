@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Little Lemon{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ffe066;
+            --primary-dark: #f4ce14;
+            --accent: #3ddc97;
+            --accent-dark: #1b9c6e;
+            --bg-dark: #181a1b;
+            --bg-light: #f8fafd;
+            --surface-dark: #23272a;
+            --surface-light: #fff;
+            --text-dark: #f8fafd;
+            --text-light: #181a1b;
+            --text-muted-dark: #b2becd;
+            --text-muted-light: #495e57;
+            --border-dark: #23272a;
+            --border-light: #e0e0e0;
+        }
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            transition: background 0.3s, color 0.3s;
+        }
+        body.light {
+            background: var(--bg-light);
+            color: var(--text-light);
+        }
+        nav {
+            background: var(--surface-dark);
+            padding: 1.2em 0.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1.5px solid var(--border-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        body.light nav {
+            background: var(--surface-light);
+            border-bottom: 1.5px solid var(--border-light);
+        }
+        nav a {
+            margin: 0 1.5em;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 700;
+            font-size: 1.13em;
+            letter-spacing: 0.04em;
+            transition: color 0.18s;
+            position: relative;
+        }
+        body.light nav a {
+            color: var(--text-light);
+        }
+        nav a:hover {
+            color: var(--accent);
+        }
+        .dark-toggle {
+            margin-left: 2em;
+            background: var(--primary);
+            border: none;
+            color: #23272a;
+            border-radius: 20px;
+            padding: 0.3em 1.2em;
+            font-size: 1em;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .dark-toggle:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 2em auto 4em auto;
+            padding: 1.5em 1em;
+        }
+        .card {
+            background: var(--surface-dark);
+            border-radius: 14px;
+            border: 1.5px solid var(--border-dark);
+            padding: 1.5em 1.2em;
+        }
+        body.light .card {
+            background: var(--surface-light);
+            border: 1.5px solid var(--border-light);
+        }
+        img.menu-img {
+            max-width: 220px;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto 1em auto;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--primary);
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+        }
+        h2, h3 {
+            color: var(--accent);
+        }
+        body.light h1, body.light h2, body.light h3, body.light h4, body.light h5, body.light h6 {
+            color: var(--primary-dark);
+        }
+        body.light h2, body.light h3 {
+            color: var(--accent-dark);
+        }
+        p, li, label, span, td, th {
+            color: inherit;
+            font-size: 1.08em;
+            line-height: 1.7;
+        }
+        footer {
+            background: var(--surface-dark);
+            color: var(--text-muted-dark);
+            text-align: center;
+            padding: 1.2em 0;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1.08em;
+            letter-spacing: 0.04em;
+            border-top: 1.5px solid var(--border-dark);
+            z-index: 100;
+        }
+        body.light footer {
+            background: var(--surface-light);
+            color: var(--text-muted-light);
+            border-top: 1.5px solid var(--border-light);
+        }
+        /* Minimal modern form styles */
+        form input, form select, form textarea {
+            background: var(--surface-dark);
+            color: var(--text-dark);
+            border: 1.5px solid var(--border-dark);
+            border-radius: 8px;
+            padding: 0.8em 1.1em;
+            margin-bottom: 1.2em;
+            width: 100%;
+            font-size: 1.08em;
+            transition: border 0.2s;
+        }
+        body.light form input, body.light form select, body.light form textarea {
+            background: var(--surface-light);
+            color: var(--text-light);
+            border: 1.5px solid var(--border-light);
+        }
+        form input:focus, form select:focus, form textarea:focus {
+            border: 2px solid var(--accent);
+            outline: none;
+        }
+        form button, button, .btn {
+            background: var(--primary);
+            color: #23272a;
+            border: none;
+            border-radius: 8px;
+            padding: 0.8em 2.2em;
+            font-size: 1.13em;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 0.5em;
+            transition: background 0.2s, color 0.2s;
+        }
+        form button:hover, button:hover, .btn:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+        /* Responsive */
+        @media (max-width: 700px) {
+            .container { padding: 0.5em; }
+            nav { flex-direction: column; }
+            nav a { margin: 0.5em 0.7em; }
+        }
+    </style>
+    <script>
+        // Dark/Light mode toggle
+        function toggleDarkMode() {
+            if (document.body.classList.contains('light')) {
+                document.body.classList.remove('light');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                document.body.classList.add('light');
+                localStorage.setItem('theme', 'light');
+            }
+        }
+        window.onload = function() {
+            if (localStorage.getItem('theme') === 'light') {
+                document.body.classList.add('light');
+            }
+        };
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/menu/">Menu</a>
+        <a href="/book/">Book</a>
+        <button class="dark-toggle" onclick="toggleDarkMode()">🌙 / ☀️</button>
+    </nav>
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+    <footer>
+        &copy; 2025 Little Lemon Restaurant
+    </footer>
+</body>
+</html> 

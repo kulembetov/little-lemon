@@ -1,0 +1,17 @@
+{% extends 'restaurant/base.html' %}
+{% block title %}Book | Little Lemon{% endblock %}
+{% block content %}
+<h1 style="text-align: center;">Book a Table</h1>
+{% if messages %}
+    {% for message in messages %}
+        <div style="background: #d4edda; color: #155724; padding: 1em; border-radius: 5px; margin-bottom: 1em;">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+<form method="post" style="max-width: 400px; margin: 0 auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="background: #f4ce14; color: #495e57; border: none; padding: 0.5em 1.5em; border-radius: 4px; font-size: 1em; cursor: pointer;">Book Now</button>
+</form>
+{% endblock %} 
