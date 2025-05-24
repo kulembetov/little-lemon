@@ -2,22 +2,34 @@
 {% block title %}Home | Little Lemon{% endblock %}
 {% block content %}
 <div style="text-align: center; margin-top: 2em;">
-    <h1 style="font-size: 2.5em; color: #e67e22; margin-bottom: 0.2em; font-family: 'Inter', Arial, sans-serif;">Welcome to Little Lemon Restaurant</h1>
-    <p style="font-size: 1.2em; color: #7c4a03; max-width: 600px; margin: 0 auto 1.5em auto; font-family: 'Inter', Arial, sans-serif;">
+    <h1 style="font-size: 2.5em; color: var(--primary); margin-bottom: 0.2em; font-family: 'Inter', Arial, sans-serif;">Welcome to Little Lemon Restaurant</h1>
+    <p style="font-size: 1.2em; color: var(--text-muted-dark); max-width: 600px; margin: 0 auto 1.5em auto; font-family: 'Inter', Arial, sans-serif;">
         Experience the vibrant flavors of the Mediterranean in a cozy, family-friendly setting. Enjoy fresh, locally sourced ingredients and classic recipes with a modern twist.
     </p>
-    <a href="/menu/" style="display: inline-block; background: #ffe066; color: #b05e09; font-weight: bold; padding: 0.8em 2em; border-radius: 8px; text-decoration: none; font-size: 1.1em; margin-bottom: 2em; font-family: 'Inter', Arial, sans-serif;">View Our Menu</a>
+    <a href="/menu/" style="display: inline-block; background: var(--primary); color: #fff; font-weight: bold; padding: 0.8em 2em; border-radius: 8px; text-decoration: none; font-size: 1.1em; margin-bottom: 2em; font-family: 'Inter', Arial, sans-serif;">View Our Menu</a>
+    {% if item_of_the_day %}
+    <div style="margin: 2em auto 2em auto; max-width: 600px; padding: 1.5em; background: var(--surface-dark); border: 2px solid var(--primary); border-radius: 18px;">
+        <h2 style="color: var(--accent);">Item of the Day</h2>
+        <a href="{% url 'menu_item_detail' item_of_the_day.id %}" style="text-decoration: none; color: inherit;">
+            <h3 style="color: var(--primary);">{{ item_of_the_day.name }}</h3>
+            <p style="color: var(--text-muted-dark);">{{ item_of_the_day.description|truncatewords:20 }}</p>
+            {% if item_of_the_day.image %}
+                <img src="{{ item_of_the_day.image }}" alt="{{ item_of_the_day.name }}" style="width: 200px; border-radius: 10px;">
+            {% endif %}
+        </a>
+    </div>
+    {% endif %}
     <div style="margin: 3em auto 0 auto; max-width: 800px;">
-        <h2 style="color: #e67e22; font-family: 'Inter', Arial, sans-serif;">Featured Dishes</h2>
+        <h2 style="color: var(--primary); font-family: 'Inter', Arial, sans-serif;">Featured Dishes</h2>
         <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2em; margin-top: 1.5em;">
             {% if featured_items %}
                 {% for item in featured_items %}
-                <a href="{% url 'menu_item_detail' item.id %}" style="background: #fff8e1; border-radius: 18px; border: 2px solid #ffe066; width: 240px; height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: left; text-decoration: none; color: #7c4a03; transition: background 0.2s, border 0.2s; font-family: 'Inter', Arial, sans-serif; box-sizing: border-box; overflow: hidden;">
+                <a href="{% url 'menu_item_detail' item.id %}" style="background: var(--surface-dark); border-radius: 18px; border: 2px solid var(--primary); width: 240px; height: 350px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; text-align: left; text-decoration: none; color: var(--text-light); transition: background 0.2s, border 0.2s; font-family: 'Inter', Arial, sans-serif; box-sizing: border-box; overflow: hidden;">
                     {% if item.image %}
-                        <img src="{{ item.image }}" alt="{{ item.name }}" style="display: block; width: 100%; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 1em; border: 1px solid #ffe066; background: #fffbe6;">
+                        <img src="{{ item.image }}" alt="{{ item.name }}" style="display: block; width: 100%; height: 140px; object-fit: cover; border-radius: 12px; margin-bottom: 1em; border: 1px solid var(--primary); background: var(--surface-light);">
                     {% endif %}
-                    <h3 style="padding-left: 10px; padding-right: 10px; text-align: center; margin: 0.7em 0 0.3em 0; color: #e67e22; font-size: 1.2em; font-family: 'Inter', Arial, sans-serif;">{{ item.name }}</h3>
-                    <p style="padding-left: 10px; padding-right: 10px; text-align: center; font-size: 0.95em; color: #7c4a03; font-family: 'Inter', Arial, sans-serif; flex: 1 1 auto;">{{ item.description|truncatewords:15 }}</p>
+                    <h3 style="padding-left: 10px; padding-right: 10px; text-align: center; margin: 0.7em 0 0.3em 0; color: var(--accent); font-size: 1.2em; font-family: 'Inter', Arial, sans-serif;">{{ item.name }}</h3>
+                    <p style="padding-left: 10px; padding-right: 10px; text-align: center; font-size: 0.95em; color: var(--text-muted-dark); font-family: 'Inter', Arial, sans-serif; flex: 1 1 auto;">{{ item.description|truncatewords:15 }}</p>
                 </a>
                 {% endfor %}
             {% else %}

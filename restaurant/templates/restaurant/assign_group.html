@@ -1,0 +1,35 @@
+{% extends 'restaurant/base.html' %}
+{% block title %}Assign Group | Little Lemon{% endblock %}
+{% block content %}
+<h1 style="text-align: center; color: var(--primary); font-family: 'Inter', Arial, sans-serif;">Assign User to Group</h1>
+<form method="post" style="max-width: 400px; margin: 2em auto; background: var(--surface-dark); padding: 2em; border-radius: 16px; border: 2px solid var(--primary);">
+    {% csrf_token %}
+    <label for="user_id">User:</label>
+    <select name="user_id" id="user_id" required style="border: 1px solid var(--primary); margin-top: 0.5em;">
+        <option value="">Select user</option>
+        {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }} ({{ user.email }})</option>
+        {% endfor %}
+    </select>
+    <label for="group_id">Group:</label>
+    <select name="group_id" id="group_id" required style="border: 1px solid var(--primary); margin-top: 0.5em;">
+        <option value="">Select group</option>
+        {% for group in groups %}
+            <option value="{{ group.id }}">{{ group.name }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" style="background: var(--primary); color: #fff;">Assign</button>
+</form>
+{% if request.user.is_superuser %}
+    <div style="text-align:center; margin-top:1.5em;">
+        <a href="/create-group/" style="background: var(--primary); color: #fff; padding: 0.7em 2em; border-radius: 8px; text-decoration: none; font-weight: bold;">+ Create New Group</a>
+    </div>
+{% endif %}
+{% if messages %}
+    <ul style="max-width: 400px; margin: 1em auto; color: var(--primary);">
+        {% for message in messages %}
+            <li style="list-style-type: none; text-align: center;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+{% endblock %} 

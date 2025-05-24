@@ -1,0 +1,12 @@
+{% extends 'restaurant/base.html' %}
+{% block title %}Manager Dashboard | Little Lemon{% endblock %}
+{% block content %}
+<h1 style="color: var(--primary);">Manager Dashboard</h1>
+<p>Welcome, {{ request.user.username }}! Here you can manage orders, menu items, and assign users to groups.</p>
+<ul style="margin-top: 2em;">
+    <li><a href="/assign-group/" style="color: var(--accent);">Assign Users to Groups</a></li>
+    <li><a href="/api/orders/" style="color: var(--accent);">View & Manage Orders</a></li>
+    <li><a href="/api/menu-items/" style="color: var(--accent);">Manage Menu Items</a></li>
+    <li><a href="/api/categories/" style="color: var(--accent);">Manage Categories</a></li>
+</ul>
+{% endblock %} 
